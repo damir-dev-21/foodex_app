@@ -13,7 +13,7 @@ A few resources to get you started if this is your first Flutter project:
 
 This is a full-stack app. 
 This project have backend (api) which send items and we send orders to backend and get user orders. Authentication with token.
-Backend created on Django framework (this project 👉🏻 <a href="https://github.com/damir-dev-21/food_back">e-commerce backend</a>).
+Backend created on Django framework (this project 👉🏻 <a href="https://github.com/damir-dev-21/food_back">foody backend</a>).
 
 ## Presentation 👀
 
