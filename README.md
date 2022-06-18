@@ -17,7 +17,5 @@ Backend created on Django framework (this project 👉🏻 <a href="https://gith
 
 ## Presentation 👀
 
-<div>
-    <img src="./assets/еда.gif" width="400" height="800"/>
-</div>
+<img src="./assets/еда.gif" width="400" height="800"/>
 
