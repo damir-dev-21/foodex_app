@@ -1,1 +1,1 @@
-const mainUrl = "http://10.0.2.2:8000/api/";
+const mainUrl = "http://94.103.83.34:8001/api/";

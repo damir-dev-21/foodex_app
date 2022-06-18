@@ -1,7 +1,12 @@
 import 'dart:ui';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/constants/colors.dart';
+import 'package:food_app/providers/auth_provider.dart';
+import 'package:food_app/routes/router.dart';
+import 'package:food_app/screens/reg_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -52,7 +57,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
-                onChanged: (e) {},
+                onChanged: (e) {
+                  setState(() {
+                    email = e;
+                  });
+                },
                 decoration: InputDecoration(
                     labelText: 'Email пользователя',
                     contentPadding: const EdgeInsets.symmetric(
@@ -113,7 +122,9 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.read<AuthProvider>().login(email, password, context);
+              },
               child: Container(
                   width: double.infinity,
                   height: 50,
@@ -159,9 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         fit: BoxFit.cover,
                         height: 20,
                       ),
-                      label: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: const Text(
+                      label: const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text(
                           'Google',
                           style: TextStyle(
                               fontSize: 15,
@@ -170,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       )),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width / 2.3,
                   height: 45,
                   child: TextButton.icon(
@@ -180,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           shadowColor: MaterialStateProperty.resolveWith(
                               (states) => Colors.black),
                           backgroundColor: MaterialStateProperty.resolveWith(
-                              (states) => Color(0xFF1777F2))),
+                              (states) => const Color(0xFF1777F2))),
                       onPressed: () {},
                       icon: Image.asset(
                         'assets/images/facebook_logo.png',
@@ -188,9 +199,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         fit: BoxFit.cover,
                         height: 20,
                       ),
-                      label: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: const Text(
+                      label: const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text(
                           'Facebook',
                           style: TextStyle(
                               fontSize: 15,
@@ -211,7 +222,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(color: appTextHeading),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      context.router.push(RegRoute());
+                    },
                     child: const Text(
                       'Зарегистрируйтесь',
                       style: TextStyle(color: appColor),

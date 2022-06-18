@@ -1,5 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/constants/colors.dart';
+import 'package:food_app/providers/auth_provider.dart';
+import 'package:food_app/routes/router.dart';
+import 'package:provider/provider.dart';
 
 class RegScreen extends StatefulWidget {
   const RegScreen({Key? key}) : super(key: key);
@@ -44,18 +48,50 @@ class _RegScreenState extends State<RegScreen> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 10.0),
                   child: Text(
-                    'Email',
+                    'Имя',
                     style: TextStyle(fontSize: 16),
                   ),
                 )),
             Container(
               child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (e) {},
+                keyboardType: TextInputType.name,
+                onChanged: (e) {
+                  setState(() {
+                    name = e;
+                  });
+                },
                 decoration: InputDecoration(
-                    labelText: 'Email пользователя',
+                    labelText: 'Имя пользователя',
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 15.0, horizontal: 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5))),
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            const Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    'Email',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                )),
+            Container(
+              child: TextField(
+                keyboardType: TextInputType.emailAddress,
+                onChanged: (text) => {
+                  setState(() {
+                    email = text;
+                  })
+                },
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15.0, horizontal: 10.0),
+                    labelText: 'Email ',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5))),
               ),
@@ -99,48 +135,14 @@ class _RegScreenState extends State<RegScreen> {
               ),
             ),
             SizedBox(
-              height: 15,
-            ),
-            const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    'Повторите пароль',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                )),
-            Container(
-              child: TextField(
-                keyboardType: TextInputType.text,
-                onChanged: (text) => {
-                  setState(() {
-                    repeatPassword = text;
-                  })
-                },
-                obscureText: isObsured,
-                decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15.0, horizontal: 10.0),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                          isObsured ? Icons.visibility : Icons.visibility_off),
-                      onPressed: () {
-                        setState(() {
-                          isObsured = !isObsured;
-                        });
-                      },
-                    ),
-                    labelText: 'Повторите пароль ',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5))),
-              ),
-            ),
-            SizedBox(
               height: 20,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context
+                    .read<AuthProvider>()
+                    .reg(name, email, password, context);
+              },
               child: Container(
                   width: double.infinity,
                   height: 50,
@@ -238,7 +240,9 @@ class _RegScreenState extends State<RegScreen> {
                     style: TextStyle(color: appTextHeading),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      context.router.push(LoginRoute());
+                    },
                     child: const Text(
                       'Войти',
                       style: TextStyle(color: appColor),
