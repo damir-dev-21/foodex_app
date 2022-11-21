@@ -1,4 +1,4 @@
-# Foody app
+# FooDex app
 
 A new Flutter project. Created for restaurant e-com
 
